@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.softdev.system</groupId>
+	<groupId>com.learning.system</groupId>
 	<artifactId>spring-cloud-study</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -42,9 +42,10 @@
 		<module>spring-cloud-study-security-jwt</module>
 		<module>spring-cloud-study-elasticsearch</module
 		<module>spring-cloud-study-logstash</module>
-		-->
 		<module>spring-cloud-study-empty</module>
-	</modules>
+        <module>spring-cloud-study-freemark</module>
+        -->
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>

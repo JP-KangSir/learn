@@ -10,7 +10,7 @@ public class ParamsController {
 	@Value("${system.miniprogram}")  
     private String miniProgramUrl;  
 	
-	@RequestMapping("/getparam")  
+	@RequestMapping("/getparam")
     public String getparam() {  
         return miniProgramUrl;  
     }  
