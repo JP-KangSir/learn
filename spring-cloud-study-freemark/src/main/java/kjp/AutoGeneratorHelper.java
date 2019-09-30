@@ -102,7 +102,7 @@ public class AutoGeneratorHelper {
             //  .setSuperServiceClass("com.baomidou.demo.TestService")
             // 自定义 service 实现类父类
             //    .setSuperServiceImplClass("com.baomidou.demo.TestServiceImpl")
-            // 自定义 controller 父类
+            // 自定义 com.learning.myproject.controller 父类
             //      .setSuperControllerClass("com.baomidou.demo.TestController")
             // 【实体】是否生成字段常量（默认 false）
             // public static final String ID = "test_id";

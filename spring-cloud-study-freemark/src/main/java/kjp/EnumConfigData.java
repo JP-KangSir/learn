@@ -31,7 +31,7 @@ public enum EnumConfigData {
   OUTPUT_DIRECTORY("输出目录","D://代码生成器"),
 
   PACKET_PATH("包路径","com.kjp"),
-  CONTROLLER("控制器包名","controller"),
+  CONTROLLER("控制器包名","com.learning.myproject.controller"),
 
   //如不需要策略 isAllow修改为false    !!!!注意 “需要生成的表” 和“排除生成的表” 是互斥关系，且选择这两个"要操作的表前缀"自动默认为false
   TABLE_PREFIX("要操作的表前缀","",new String[]{"lrk_", "base_"},true),

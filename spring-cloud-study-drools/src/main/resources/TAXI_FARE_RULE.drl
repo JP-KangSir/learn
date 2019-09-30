@@ -1,5 +1,5 @@
-global com.softdev.system.demo.entity.TaxiFare rideFare;
-import com.softdev.system.demo.entity.TaxiRide;
+global com.learning.system.demo.entity.TaxiFare rideFare;
+import com.learning.system.demo.entity.TaxiRide;
 import java.math.BigDecimal;
 
 dialect  "mvel"

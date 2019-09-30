@@ -6,31 +6,78 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="spring-cloud-study-configcenter" />
-        <module name="spring-cloud-study-demo" />
+        <module name="spring-cloud-study-elasticsearch" />
         <module name="spring-cloud-study-eureka" />
+        <module name="spring-cloud-study-aop" />
+        <module name="spring-cloud-study-configcenter" />
+        <module name="spring-cloud-study-security" />
+        <module name="spring-cloud-study-logstash" />
         <module name="spring-cloud-study-feign" />
-        <module name="spring-cloud-study-jms" />
-        <module name="spring-cloud-study-jpa" />
-        <module name="spring-cloud-study-mybatisplus" />
-        <module name="spring-cloud-study-poi" />
+        <module name="spring-cloud-study-drools" />
         <module name="spring-cloud-study-redis" />
+        <module name="springcloudstudyfreemark" />
+        <module name="spring-cloud-study-mybatisplus" />
         <module name="spring-cloud-study-zuul" />
+        <module name="spring-cloud-study-demo" />
+        <module name="spring-cloud-study-poi" />
+        <module name="myProject" />
+        <module name="spring-cloud-study-empty" />
+        <module name="spring-cloud-study-udp" />
+        <module name="spring-cloud-study-netty-websocket" />
+        <module name="spring-cloud-study-jpa" />
+        <module name="spring-cloud-study-jms" />
+        <module name="spring-cloud-study-security-jwt" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="myProject" target="1.8" />
       <module name="spring-cloud-study" target="1.8" />
+      <module name="spring-cloud-study-aop" target="1.8" />
       <module name="spring-cloud-study-configcenter" target="1.8" />
       <module name="spring-cloud-study-demo" target="1.8" />
+      <module name="spring-cloud-study-drools" target="1.8" />
+      <module name="spring-cloud-study-elasticsearch" target="1.8" />
+      <module name="spring-cloud-study-empty" target="1.8" />
       <module name="spring-cloud-study-eureka" target="1.8" />
       <module name="spring-cloud-study-feign" target="1.8" />
       <module name="spring-cloud-study-jms" target="1.8" />
       <module name="spring-cloud-study-jpa" target="1.10" />
+      <module name="spring-cloud-study-logstash" target="1.8" />
       <module name="spring-cloud-study-mybatisplus" target="1.8" />
+      <module name="spring-cloud-study-netty-websocket" target="1.8" />
       <module name="spring-cloud-study-poi" target="1.8" />
       <module name="spring-cloud-study-redis" target="1.8" />
+      <module name="spring-cloud-study-security" target="1.8" />
+      <module name="spring-cloud-study-security-jwt" target="1.8" />
       <module name="spring-cloud-study-shiro" target="1.8" />
+      <module name="spring-cloud-study-udp" target="1.8" />
       <module name="spring-cloud-study-zuul" target="1.8" />
+      <module name="springcloudstudyfreemark" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="myProject" options="-parameters" />
+      <module name="spring-cloud-study-aop" options="-parameters" />
+      <module name="spring-cloud-study-configcenter" options="-parameters" />
+      <module name="spring-cloud-study-demo" options="-parameters" />
+      <module name="spring-cloud-study-drools" options="-parameters" />
+      <module name="spring-cloud-study-elasticsearch" options="-parameters" />
+      <module name="spring-cloud-study-empty" options="-parameters" />
+      <module name="spring-cloud-study-eureka" options="-parameters" />
+      <module name="spring-cloud-study-feign" options="-parameters" />
+      <module name="spring-cloud-study-jms" options="-parameters" />
+      <module name="spring-cloud-study-jpa" options="-parameters" />
+      <module name="spring-cloud-study-logstash" options="-parameters" />
+      <module name="spring-cloud-study-mybatisplus" options="-parameters" />
+      <module name="spring-cloud-study-netty-websocket" options="-parameters" />
+      <module name="spring-cloud-study-poi" options="-parameters" />
+      <module name="spring-cloud-study-redis" options="-parameters" />
+      <module name="spring-cloud-study-security" options="-parameters" />
+      <module name="spring-cloud-study-security-jwt" options="-parameters" />
+      <module name="spring-cloud-study-udp" options="-parameters" />
+      <module name="spring-cloud-study-zuul" options="-parameters" />
+      <module name="springcloudstudyfreemark" options="-parameters" />
+    </option>
   </component>
 </project>

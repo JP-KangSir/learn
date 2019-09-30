@@ -1,0 +1,8 @@
+
+swagger2:
+  enable: true
+
+
+spring:
+  profiles:
+    active: dev
