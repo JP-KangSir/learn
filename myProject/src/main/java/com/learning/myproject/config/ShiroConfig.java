@@ -2,11 +2,12 @@ package com.learning.myproject.config;
 
 
 import com.learning.myproject.config.realm.MyRealm;
-import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
-import org.apache.shiro.mgt.DefaultSubjectDAO;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,60 +17,91 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 功能说明:
- * 开发人员: regtech regtech@hzregtech.com <br>
- * 开发时间: 2019/9/30 <br>
- * 功能描述: 写明作用，调用方式，使用场景，以及特殊情况<br>
+ * Created with IntelliJ IDEA.
+ *
+ * @author: huoming
+ * @Email : honghuoming@zhehekeji.com
  */
 @Configuration
 public class ShiroConfig {
 
-    @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
-        //拦截器
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-        // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/login/**", "anon");
-        filterChainDefinitionMap.put("/**.js", "anon");
-        filterChainDefinitionMap.put("/druid/**", "anon");
-        filterChainDefinitionMap.put("/swagger**/**", "anon");
-        filterChainDefinitionMap.put("/webjars/**", "anon");
-        filterChainDefinitionMap.put("/v2/**", "anon");
-        // 添加自己的过滤器并且取名为jwt
-        Map<String, Filter> filterMap = new HashMap<String, Filter>(1);
-        filterMap.put("jwt", new JwtFilter());
-        shiroFilterFactoryBean.setFilters(filterMap);
-        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
-        filterChainDefinitionMap.put("/**", "jwt");
+    @Value("${spring.profiles.active}")
+    private String profile;
 
 
-        //未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-
-        return shiroFilterFactoryBean;
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("MD5");
+        hashedCredentialsMatcher.setHashIterations(10);
+        return hashedCredentialsMatcher;
     }
 
+    @Bean
+    public MyRealm myRealm() {
+        MyRealm myRealm = new MyRealm();
+        myRealm.setCacheManager(new MemoryConstrainedCacheManager());
+        myRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return myRealm;
+    }
+
+
     @Bean("securityManager")
-    public SecurityManager securityManager(MyRealm myRealm) {
+    public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myRealm);
-
-        /*
-         * 关闭shiro自带的session，详情见文档
-         * http://shiro.apache.org/session-management.html#SessionManagement-StatelessApplications%28Sessionless%29
-         */
-        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
-        DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
-        defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
-        subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
-        securityManager.setSubjectDAO(subjectDAO);
-
+        securityManager.setRealm(myRealm());
         return securityManager;
     }
 
+    @Bean("shiroFilter")
+    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
+        shiroFilter.setSecurityManager(securityManager);
+        Map<String, Filter> filters = new HashMap<>();
+        Map<String, String> filterMap = new LinkedHashMap<>();
+        filterMap.put("/login/in", "anon");
+        filterMap.put("/login/getToken", "anon");
+        filterMap.put("/login/resetPassword/**", "anon");
+        filterMap.put("/swagger-resources/**", "anon");
+        filterMap.put("/v2/api-docs", "anon");
+        filterMap.put("/webjars/**", "anon");
+        filterMap.put("/**/*.html", "anon");
+        filterMap.put("/**/*.js", "anon");
+        filterMap.put("/**/*.css", "anon");
+        filterMap.put("/**", "jwt");
+        filterMap.put("/login/out", "logout");
+        filters.put("jwt", new JwtFilter());
+        shiroFilter.setFilters(filters);
+        shiroFilter.setFilterChainDefinitionMap(filterMap);
+        return shiroFilter;
+    }
+
+
+   /* *//**
+     *  开启shiro aop注解支持.
+     *  使用代理方式;所以需要开启代码支持;
+     * @param securityManager
+     * @return
+     *//*
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
+    }
+
+    @Bean(name="simpleMappingExceptionResolver")
+    public SimpleMappingExceptionResolver
+    createSimpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
+        Properties mappings = new Properties();
+        mappings.setProperty("DatabaseException", "databaseError");//数据库异常处理
+        mappings.setProperty("UnauthorizedException","/user/403");
+        r.setExceptionMappings(mappings);  // None by default
+        r.setDefaultErrorView("error");    // No default
+        r.setExceptionAttribute("exception");     // Default is "exception"
+        //r.setWarnLogCategory("example.MvcLogger");     // No default
+        return r;
+    }*/
 
 }

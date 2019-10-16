@@ -9,6 +9,7 @@
 package com.learning.myproject.config.realm;
 
 import com.learning.myproject.entity.User;
+import com.learning.myproject.exception.ForbidLoginException;
 import com.learning.myproject.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -18,6 +19,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -30,6 +32,8 @@ public class MyRealm extends AuthorizingRealm {
 
   @Autowired
   private UserService userService;
+
+  public static final Byte NO = 1;
 
   /**
    * 授权(验证权限时调用)
@@ -44,13 +48,26 @@ public class MyRealm extends AuthorizingRealm {
    */
   @Override
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-    String accessToken = (String) authenticationToken.getPrincipal();
-    User user = userService.getUser();
-
+    String useanme = (String) authenticationToken.getPrincipal();
+    User user = userService.getUserByUsername(useanme);
     if (user == null) {
       throw new UnknownAccountException();
     }
-    //当前登录用户信息(后续补上redis缓存)
-    return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
+    if (user.getCanLogin().equals(NO)) {
+      throw new ForbidLoginException();
+    }
+
+   /* //当前登录用户信息
+    UserDetails.setUser(user.getUsername(), user);
+    if (user.getRoleId() != null) {
+      //当前登录用户数据权限
+      roleService.getRoleById(user.getRoleId());
+      UserDetails.setDataAcl(user.getUsername(), roleService.getDataAclDetailByRoleId(user.getRoleId()));
+    }
+    //当前登录用户所在公司信息
+    UserDetails.setOrganization(user.getUsername(), userService.getUserOrganizationInfo(user.getId()));*/
+    ByteSource credentialsSalt = ByteSource.Util.bytes(user.getSalt());
+    return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), credentialsSalt, getName());
+
   }
 }

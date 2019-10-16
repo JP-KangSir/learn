@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -24,12 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/swaggerTest")
 public class SwaggerTest {
 
-  @Value("${db-data.username}")
-  private String username;
-
   @ApiOperation("swagger测试")
   @GetMapping("/swaggerTest")
-  public String swaggerTest() {
+  public String swaggerTest(@RequestBody String username) {
     System.out.println(username);
     return username;
   }

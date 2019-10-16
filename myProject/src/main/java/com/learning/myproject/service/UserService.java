@@ -9,6 +9,7 @@
 package com.learning.myproject.service;
 
 import com.learning.myproject.entity.User;
+import com.learning.myproject.entity.UserDTO;
 
 /**
  * 功能说明:
@@ -22,6 +23,8 @@ public interface UserService {
    * 获取用户名密码
    * @return
    */
-  User getUser();
+  User getUserByUsername(String username);
+
+  Integer saveUser(UserDTO userDTO);
 }
 

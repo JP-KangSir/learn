@@ -8,10 +8,14 @@
  */
 package com.learning.myproject.service.impl;
 
+import com.learning.myproject.dao.UserDao;
 import com.learning.myproject.entity.User;
+import com.learning.myproject.entity.UserDTO;
 import com.learning.myproject.service.UserService;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * 功能说明:
@@ -22,14 +26,33 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-  @Value("${db-data.username}")
-  private String username;
-  @Value("${db-data.password}")
-  private String password;
+  @Resource
+  private UserDao userDao;
 
 
   @Override
-  public User getUser() {
-    return new User(username,password);
+  public User getUserByUsername(String username) {
+    return userDao.getUserByUsername(username);
+  }
+
+  @Override
+  public Integer saveUser(UserDTO userDTO) {
+   /* Role role = roleDao.selectById(userDTO.getRoleId() != null);
+    Integer designerManagerCount = userDao.getDesignerManagerCount(userDTO.getCompanyId());
+    if (designerManagerCount>0 && role!=null  && role.getName().equals(RoleNameEnum.DESIGNER_MANAGER.getName()))throw new RepeatDataException("已存在设计师");
+    String salt = Md5Utils.generateSalt();
+    userDTO.setSalt(salt);
+    userDTO.setPassword(Md5Utils.encryption(userDTO.getPassword(),salt));
+    if (!userDTO.getIsDistributor().equals(NOT_IS_DISTRIBUTOR)){
+      DistributorOrganization distributorInfo = organizationService.getDistributorOrganization();
+      if (distributorInfo!=null){
+        userDTO.setGroupId(distributorInfo.getGroupId());
+        userDTO.setCompanyId(distributorInfo.getCompanyId());
+        userDTO.setDepartmentId(distributorInfo.getDepartmentId());
+      }
+    }
+    userDao.saveUser(userDTO);
+    return userDTO.getId();*/
+   return null;
   }
 }

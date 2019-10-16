@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/activemq/activemq.iml" filepath="$PROJECT_DIR$/activemq/activemq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-study-activemq/consumer/consumer.iml" filepath="$PROJECT_DIR$/spring-cloud-study-activemq/consumer/consumer.iml" />
       <module fileurl="file://$PROJECT_DIR$/myProject/myProject.iml" filepath="$PROJECT_DIR$/myProject/myProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-study-activemq/producer/producer.iml" filepath="$PROJECT_DIR$/spring-cloud-study-activemq/producer/producer.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-study.iml" filepath="$PROJECT_DIR$/spring-cloud-study.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-study-activemq/spring-cloud-study-activemq.iml" filepath="$PROJECT_DIR$/spring-cloud-study-activemq/spring-cloud-study-activemq.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-study-aop/spring-cloud-study-aop.iml" filepath="$PROJECT_DIR$/spring-cloud-study-aop/spring-cloud-study-aop.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-study-configcenter/spring-cloud-study-configcenter.iml" filepath="$PROJECT_DIR$/spring-cloud-study-configcenter/spring-cloud-study-configcenter.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-study-demo/spring-cloud-study-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-study-demo/spring-cloud-study-demo.iml" />

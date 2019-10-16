@@ -11,7 +11,8 @@ import java.io.PrintWriter;
 /**
  * Created with IntelliJ IDEA.
  *
- * @author: kjp
+ * @author kjp
+ * Email : kangjinpeng@zhehekeji.com
  */
 public class ResponseUtil {
 
